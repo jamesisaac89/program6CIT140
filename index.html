@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>25mph or More Over</title>
+    <title>Traffic Tickets</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Vue.js -->
@@ -15,10 +15,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="index.html">All Tickets</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="25over.html">25mph or More Over</a>
                 </li>
             </ul>
@@ -26,7 +26,7 @@
     </nav>
 
     <div id="app" class="container mt-4">
-        <h2>Traffic Tickets: 25mph or More Over</h2>
+        <h2>All Traffic Tickets</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="ticket in filteredTickets" :key="ticket.ticket_id">
+                <tr v-for="ticket in tickets" :key="ticket.ticket_id">
                     <td>{{ ticket.ticket_id }}</td>
                     <td>{{ ticket.speed }}</td>
                     <td>{{ ticket.limit }}</td>
@@ -53,15 +53,13 @@
         new Vue({
             el: '#app',
             data: {
-                tickets: [],
-                filteredTickets: []
+                tickets: []
             },
             created() {
                 fetch('tickets1.json')
                     .then(response => response.json())
                     .then(data => {
                         this.tickets = data;
-                        this.filteredTickets = this.tickets.filter(ticket => ticket.speed > ticket.limit + 25);
                     });
             }
         });
